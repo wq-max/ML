@@ -100,13 +100,13 @@ class Agent:
         self.qnetwork_local.eval()
         with torch.no_grad():
             action_values = self.qnetwork_local(state)
-            print("action_values: ")
-            print(action_values)
+            #print("action_values: ")
+            #print(action_values)
         self.qnetwork_local.train()
 
         if random.random() > eps:
-            print("max act  action: " + str(np.argmax(action_values.cpu().data.numpy())))
+            #print("max act  action: " + str(np.argmax(action_values.cpu().data.numpy())))
             return np.argmax(action_values.cpu().data.numpy())
         else:
-            print("random act  action: " + str(random.choice(np.arange(self.action_size))))
+            #print("random act  action: " + str(random.choice(np.arange(self.action_size))))
             return random.choice(np.arange(self.action_size))

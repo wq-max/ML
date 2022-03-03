@@ -7,7 +7,7 @@ import numpy as np
 import torch
 
 STATE_SIZE = 10
-EPISODE_COUNT = 2
+EPISODE_COUNT = 1000
 
 
 def dqn(n_episodes=EPISODE_COUNT, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
@@ -15,19 +15,19 @@ def dqn(n_episodes=EPISODE_COUNT, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
     for i_episode in range(1, n_episodes+1):
         print("Episode" + str(i_episode))
         state = getState(stockData, 0, STATE_SIZE + 1)
-        print("state: ")
-        print(state)
+        #print("state: ")
+        #print(state)
         total_profit = 0
         agent.inventory = []
         eps = eps_start
 
         for t in range(l):
-            print("agent act: ")
+            #print("agent act: ")
             action = agent.act(state, eps)
-            print("action: " + str(action))
+            #print("action: " + str(action))
             next_state = getState(stockData, t + 1, STATE_SIZE + 1)
-            print("next_stat: ")
-            print(next_state)
+            #print("next_stat: ")
+            #print(next_state)
             reward = 0
 
             if action == 1:# 买入
@@ -37,8 +37,8 @@ def dqn(n_episodes=EPISODE_COUNT, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
                 bought_price = agent.inventory.pop(0)
                 total_profit += stockData[t] - bought_price
                 # reward = max(stockData[t] - bought_price, 0)
-                reward = stockData[t] - bought_price
-                print("reward: " + str(reward))
+                #reward = stockData[t] - bought_price
+                #print("reward: " + str(reward))
                 #print("Sell: " + str(stockData[t]) + " | Profit: " + str(stockData[t] - bought_price))
             done = 1 if t == l - 1 else 0
             agent.step(state, action, reward, next_state, done)
