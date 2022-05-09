@@ -7,7 +7,7 @@ import numpy as np
 import torch
 
 STATE_SIZE = 10
-EPISODE_COUNT = 1000
+EPISODE_COUNT = 100
 
 
 def dqn(n_episodes=EPISODE_COUNT, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
@@ -36,8 +36,8 @@ def dqn(n_episodes=EPISODE_COUNT, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
             elif action == 2 and len(agent.inventory) > 0: # 卖出
                 bought_price = agent.inventory.pop(0)
                 total_profit += stockData[t] - bought_price
-                # reward = max(stockData[t] - bought_price, 0)
-                #reward = stockData[t] - bought_price
+                #reward = max(stockData[t] - bought_price, 0)
+                reward = (stockData[t] - bought_price) / stockData[t]
                 #print("reward: " + str(reward))
                 #print("Sell: " + str(stockData[t]) + " | Profit: " + str(stockData[t] - bought_price))
             done = 1 if t == l - 1 else 0
